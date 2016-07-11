@@ -255,7 +255,7 @@ class PopupTab extends \Magento\Backend\Block\Widget\Form\Generic implements Tab
             ]
         );
 
-        $fieldset->addField(
+        $showfollow = $fieldset->addField(
             'show_on_page',
             'select',
             [
@@ -299,7 +299,7 @@ class PopupTab extends \Magento\Backend\Block\Widget\Form\Generic implements Tab
             ]
         );
 
-        $fieldset->addField(
+        $showspeciurl = $fieldset->addField(
             'specified_url',
             'text',
             [
@@ -313,12 +313,14 @@ class PopupTab extends \Magento\Backend\Block\Widget\Form\Generic implements Tab
 
         $collection= $this->_objectManager->create('Magento\Catalog\Model\ResourceModel\Product\Collection');
         $productIds = implode(", ", $collection->getAllIds());
-        $fieldset->addField(
+        $showproduct = $fieldset->addField(
             'products',
             'text',
             [
                 'name' => 'products',
-                'label' => __('Products'),
+                'label' => __('Products:'),
+                'title' => __('Products'),
+                'required' => false,
                 'style' =>  'max-width: 350px',
                 'config' => $this->_wysiwygConfig->getConfig(),
                 'class' => 'rule-param',
@@ -358,13 +360,15 @@ class PopupTab extends \Magento\Backend\Block\Widget\Form\Generic implements Tab
         if(!isset($data['categories'])){
             $data['categories'] = $categoryIds;
         }
-        $fieldset->addField(
+        $showcateogry = $fieldset->addField(
             'categories',
             'text',
             [
                 'name' => 'categories',
-                'label' => __('Categories'),
+                'label' => __('Categories:'),
+                'title' => __('Categories'),
                 'style' =>  'max-width: 650px',
+                'required' => false,
                 'after_element_html' => '<a id="category_link" href="javascript:void(0)" onclick="toggleMainCategories()"><img src="' . $this->getRuleTrigerImage() . '" alt="" class="v-middle rule-chooser-trigger" title="Select Categories"></a>
                 <div  id="categories_check" style="display:none">
                     <a href="javascript:toggleMainCategories(1)">Check All</a> / <a href="javascript:toggleMainCategories(2)">Uncheck All</a>
@@ -407,17 +411,20 @@ class PopupTab extends \Magento\Backend\Block\Widget\Form\Generic implements Tab
             ]
         );
 
-        $fieldset->addField(
-            'exclude_url',
-            'text',
-            [
-                'name' => 'exclude_url',
-                'label' => __('Exclude URL:'),
-                'title' => __('Exclude URl'),
-                'required' => false,
-                'style' =>  'max-width: 350px',
-            ]
-        );
+
+            $fieldset->addField(
+                'exclude_url',
+                'text',
+                [
+                    'name' => 'exclude_url',
+                    'label' => __('Exclude URL:'),
+                    'title' => __('Exclude URl'),
+                    'required' => false,
+                    'style' =>  'max-width: 350px',
+                ]
+            );
+
+
 
         $fieldset->addField(
             'show_when',
@@ -501,9 +508,46 @@ class PopupTab extends \Magento\Backend\Block\Widget\Form\Generic implements Tab
 
         if($model['width'] == ''){$model['width'] = 300;}
         if($model['priority'] == ''){$model['priority'] = 0;}
+
+        // define field dependencies
+//        $this->setChild(
+//            'form_after',
+//            $this->getLayout()->createBlock(
+//                'Magento\Backend\Block\Widget\Form\Element\Dependence'
+//            )->addFieldMap(
+//                "categories",
+//                'show_on_page',
+//                'SHOW_ON_CATEGORY_PAGE'
+//            )
+//        );
+
         $form->setValues($model->getData());
         $this->setForm($form);
 
+        //field dependencies
+        $this->setChild('form_after',$this->getLayout()
+            ->createBlock('Magento\Backend\Block\Widget\Form\Element\Dependence')
+            ->addFieldMap($showfollow->getHtmlId(), $showfollow->getName())
+            ->addFieldMap($showcateogry->getHtmlId(), $showcateogry->getName())
+            ->addFieldMap($showproduct->getHtmlId(), $showproduct->getName())
+            ->addFieldMap($showspeciurl->getHtmlId(), $showspeciurl->getName())
+            ->addFieldDependence(
+                $showcateogry->getName(),
+                $showfollow->getName(),
+                'SHOW_ON_CATEGORY_PAGE'
+            )
+            ->addFieldDependence(
+                $showproduct->getName(),
+                $showfollow->getName(),
+                'SHOW_ON_PRODUCT_PAGE'
+            )
+            ->addFieldDependence(
+                $showspeciurl->getName(),
+                $showfollow->getName(),
+                'SHOW_ON_URLS_PAGE'
+            )
+        );
+        
         return parent::_prepareForm();
     }
 }
