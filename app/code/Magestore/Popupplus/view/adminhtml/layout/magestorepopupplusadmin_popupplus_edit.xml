@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd" layout="admin-2columns-left">
+  <head>
+    <title>Edit Popup</title>
+    <!--<script src="Magestore_Megamenu::js/jscolor/jscolor.js"/>-->
+  </head>
+  <body>
+    <referenceContainer name="content">
+      <block class="Magestore\Popupplus\Block\Adminhtml\Popupplus\Edit" name="admin.block.popupplus.form.container"/>
+    </referenceContainer>
+    <referenceContainer name="left">
+      <block class="Magestore\Popupplus\Block\Adminhtml\Popupplus\Edit\Tabs" name="popupplus_edit_tab">
+        <!--add tab popup-->
+        <block class="Magestore\Popupplus\Block\Adminhtml\Popupplus\Edit\Tab\PopupTab" name="popupplus_edit_tab_popup"/>
+        <action method="addTab">
+          <argument name="name" xsi:type="string">main_section</argument>
+          <argument name="block" xsi:type="string">popupplus_edit_tab_popup</argument>
+        </action>
+
+        <!--add tab style and effects-->
+        <block class="Magestore\Popupplus\Block\Adminhtml\Popupplus\Edit\Tab\StyleandeffectTab" name="popupplus_edit_tab_styleandeffect"/>
+        <action method="addTab">
+          <argument name="name" xsi:type="string">styleandeffect_section</argument>
+          <argument name="block" xsi:type="string">popupplus_edit_tab_styleandeffect</argument>
+        </action>
+
+        <!--add tab placement-->
+        <block class="Magestore\Popupplus\Block\Adminhtml\Popupplus\Edit\Tab\PlacementTab" name="popupplus_edit_tab_placement"/>
+        <action method="addTab">
+          <argument name="name" xsi:type="string">placement_section</argument>
+          <argument name="block" xsi:type="string">popupplus_edit_tab_placement</argument>
+        </action>
+
+        <!--add tab segmentation-->
+        <block class="Magestore\Popupplus\Block\Adminhtml\Popupplus\Edit\Tab\SegmentationTab" name="popupplus_edit_tab_segmentation"/>
+        <action method="addTab">
+          <argument name="name" xsi:type="string">segmentation_section</argument>
+          <argument name="block" xsi:type="string">popupplus_edit_tab_segmentation</argument>
+        </action>
+
+      </block>
+    </referenceContainer>
+  </body>
+</page>
