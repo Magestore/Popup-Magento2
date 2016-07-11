@@ -255,6 +255,72 @@ class PopupTab extends \Magento\Backend\Block\Widget\Form\Generic implements Tab
             ]
         );
 
+        $fieldset->addField(
+            'show_when',
+            'select',
+            [
+                'name' => 'show_when',
+                'label' => __('Show When:'),
+                'title' => __('Show When'),
+                'required' => true,
+                'style' =>  'min-width: 350px',
+                'values' => array(
+                    array(
+                        'value' => 'after_load_page',
+                        'label' => 'After loading page',
+                    ),
+                    array(
+                        'value' => 'after_seconds',
+                        'label' => 'After Seconds',
+                    ),
+                ),
+            ]
+        );
+
+        $fieldset->addField(
+            'showing_frequency',
+            'select',
+            [
+                'name' => 'showing_frequency',
+                'label' => __('Showing Frequency:'),
+                'title' => __('Showing Frequency'),
+                'required' => true,
+                'style' =>  'min-width: 350px',
+                'values' => array(
+                    array(
+                        'value' => 'SHOW_FREQUENCY_EVERY_TIME',
+                        'label' => 'Every time',
+                    ),
+                    array(
+                        'value' => 'SHOW_FREQUENCY_UNTIL_CLOSE',
+                        'label' => 'Show until user close it',
+                    ),
+                    array(
+                        'value' => 'SHOW_FREQUENCY_ONLY_ONE',
+                        'label' => 'Only once',
+                    ),
+                    array(
+                        'value' => 'SHOW_FREQUENCY_ONLY_TRIGGER',
+                        'label' => 'When click on trigger',
+                    ),
+                ),
+                'note'     =>__("Show popup based on visitor's behavior."),
+            ]
+        );
+
+        $fieldset->addField(
+            'trigger_popup',
+            'text',
+            [
+                'name' => 'trigger_popup',
+                'label' => __('Click Target:'),
+                'title' => __('Click Target'),
+                'required' => false,
+                'style' =>  'max-width: 350px',
+                'note'     =>__('Select ID of the popup to be shown when clicking this popup'),
+            ]
+        );
+
         $showfollow = $fieldset->addField(
             'show_on_page',
             'select',
@@ -412,86 +478,18 @@ class PopupTab extends \Magento\Backend\Block\Widget\Form\Generic implements Tab
         );
 
 
-            $fieldset->addField(
-                'exclude_url',
-                'text',
-                [
-                    'name' => 'exclude_url',
-                    'label' => __('Exclude URL:'),
-                    'title' => __('Exclude URl'),
-                    'required' => false,
-                    'style' =>  'max-width: 350px',
-                ]
-            );
-
-
-
         $fieldset->addField(
-            'show_when',
-            'select',
-            [
-                'name' => 'show_when',
-                'label' => __('Show When:'),
-                'title' => __('Show When'),
-                'required' => true,
-                'style' =>  'min-width: 350px',
-                'values' => array(
-                    array(
-                        'value' => 'after_load_page',
-                        'label' => 'After loading page',
-                    ),
-                    array(
-                        'value' => 'after_seconds',
-                        'label' => 'After Seconds',
-                    ),
-                ),
-            ]
-        );
-
-        $fieldset->addField(
-            'showing_frequency',
-            'select',
-            [
-                'name' => 'showing_frequency',
-                'label' => __('Showing Frequency:'),
-                'title' => __('Showing Frequency'),
-                'required' => true,
-                'style' =>  'min-width: 350px',
-                'values' => array(
-                    array(
-                        'value' => 'SHOW_FREQUENCY_EVERY_TIME',
-                        'label' => 'Every time',
-                    ),
-                    array(
-                        'value' => 'SHOW_FREQUENCY_UNTIL_CLOSE',
-                        'label' => 'Show until user close it',
-                    ),
-                    array(
-                        'value' => 'SHOW_FREQUENCY_ONLY_ONE',
-                        'label' => 'Only once',
-                    ),
-                    array(
-                        'value' => 'SHOW_FREQUENCY_ONLY_TRIGGER',
-                        'label' => 'When click on trigger',
-                    ),
-                ),
-                'note'     =>__("Show popup based on visitor's behavior."),
-            ]
-        );
-
-        $fieldset->addField(
-            'trigger_popup',
+            'exclude_url',
             'text',
             [
-                'name' => 'trigger_popup',
-                'label' => __('Click Target:'),
-                'title' => __('Click Target'),
+                'name' => 'exclude_url',
+                'label' => __('Exclude URL:'),
+                'title' => __('Exclude URl'),
                 'required' => false,
                 'style' =>  'max-width: 350px',
-                'note'     =>__('Select ID of the popup to be shown when clicking this popup'),
             ]
         );
-
+        
         $fieldset->addField(
             'priority',
             'text',
