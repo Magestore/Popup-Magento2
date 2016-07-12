@@ -1,0 +1,15 @@
+.templates{
+    margin:0px;
+    padding:0px;
+}
+
+.content{
+    width:100%;
+    margin: 0 auto;
+}
+
+.gettemp{
+    width: 100%;
+    background: blue;
+    height: 150px;
+}

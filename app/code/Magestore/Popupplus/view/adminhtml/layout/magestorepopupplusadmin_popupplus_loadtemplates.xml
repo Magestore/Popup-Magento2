@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd" layout="admin-2columns-left">
+    <update handle="formkey"/>
+    <head>
+        <title>Default Templates</title>
+        <css src="Magestore_Popupplus::css/loadtemplates.css" />
+    </head>
+    <body>
+        <container name="root">
+            <block class="Magestore\Popupplus\Block\Adminhtml\Loadtemplates" name="admin.block.popupplus.grid.template" />
+            <block class="Magestore\Popupplus\Block\Adminhtml\Loadtemplates" name="admin.block.popupplus.grid.template.js" template="Magestore_Popupplus::loadtemplate_js.phtml" />
+        </container>
+    </body>
+</page>

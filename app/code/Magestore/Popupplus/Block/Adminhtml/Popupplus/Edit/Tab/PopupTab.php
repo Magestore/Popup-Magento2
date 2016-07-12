@@ -202,6 +202,42 @@ class PopupTab extends \Magento\Backend\Block\Widget\Form\Generic implements Tab
         );
 
         $fieldset->addField(
+            'load_template',
+            'label',
+            [
+                'name' => 'load_template',
+                'label' => __(''),
+                'title' => __(''),
+                'required' => false,
+                'after_element_html' => '
+                <button id="" type="button" class="scalable add" style="" alt="Load template"
+                 title="Load template" onclick="popupwindow(\''
+                                    .$this->getUrl('magestorepopupplusadmin/popupplus/loadtemplates').'\', \'_blank\', 1000, 500);" href="javascript:void(0);" <span="">Create popup using predefined templates
+                        </button>
+                        <script type="text/javascript">
+                        var popupLoadTemplate;
+                        function popupwindow(url, title, w, h) {
+                  var left = (screen.width/2)-(w/2);
+                  var top = (screen.height/2)-(h/2);
+                  wLoad = window.open(url, title, \'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, copyhistory=no, width=\'+w+\', height=\'+h+\', top=\'+top+\', left=\'+left);
+                  //load after window close
+                  wLoad.onunload = function(e){
+                    if (wLoad.closed) {
+                        //window closed
+                        var template_id = wLoad.document.getElementById(\'template_id\').value;
+                        window.location.href = "'.$this->getUrl('magestorepopupplusadmin/popupplus_widget/save').'template_id/"+template_id;
+                        //console.log(wLoad.document.getElementById(\'template_id\').value);
+                    }else{
+                       //just refreshed
+                    }
+                  }
+                  return popupLoadTemplate;
+                }
+                </script>'
+            ]
+        );
+
+        $fieldset->addField(
             'popup_content',
             'editor',
             [
@@ -242,20 +278,7 @@ class PopupTab extends \Magento\Backend\Block\Widget\Form\Generic implements Tab
             ]
         );
 
-        $fieldset->addField(
-            'store',
-            'select',
-            [
-                'name' => 'store',
-                'label' => __('Store:'),
-                'title' => __('Store'),
-                'style' =>  'min-width: 350px',
-                'required' => false,
-                'values' => $this->_systemStore->getStoreValuesForForm(false, true),
-            ]
-        );
-
-        $fieldset->addField(
+        $showwhen = $fieldset->addField(
             'show_when',
             'select',
             [
@@ -274,6 +297,20 @@ class PopupTab extends \Magento\Backend\Block\Widget\Form\Generic implements Tab
                         'label' => 'After Seconds',
                     ),
                 ),
+            ]
+        );
+
+        $delaytime = $fieldset->addField(
+            'seconds_delay',
+            'text',
+            [
+                'name' => 'seconds_delay',
+                'label' => __('Seconds Delay:'),
+                'title' => __('Seconds Delay'),
+                'required' => false,
+                'style' =>  'max-width: 350px',
+                'class'       => 'validate-number',
+                'note'      => 'Seconds to show popup.',
             ]
         );
 
@@ -321,6 +358,46 @@ class PopupTab extends \Magento\Backend\Block\Widget\Form\Generic implements Tab
             ]
         );
 
+        $fieldset->addField(
+            'priority',
+            'text',
+            [
+                'name' => 'priority',
+                'label' => __('Set Priority:'),
+                'title' => __('Set Priority'),
+                'required' => false,
+                'style' =>  'max-width: 350px',
+                'note'     =>__('Set priority for popups to be shown. 0 is the lowest priority.'),
+            ]
+        );
+
+        $fieldset = $form->addFieldset('showonpage_fieldset', ['legend' => __('Choose Location To Show Popup')]);
+
+        $fieldset->addField(
+            'store',
+            'select',
+            [
+                'name' => 'store',
+                'label' => __('Store:'),
+                'title' => __('Store'),
+                'style' =>  'min-width: 350px',
+                'required' => false,
+                'values' => $this->_systemStore->getStoreValuesForForm(false, true),
+            ]
+        );
+
+        $fieldset->addField(
+            'exclude_url',
+            'text',
+            [
+                'name' => 'exclude_url',
+                'label' => __('Exclude URL:'),
+                'title' => __('Exclude URl'),
+                'required' => false,
+                'style' =>  'max-width: 350px',
+            ]
+        );
+
         $showfollow = $fieldset->addField(
             'show_on_page',
             'select',
@@ -362,18 +439,16 @@ class PopupTab extends \Magento\Backend\Block\Widget\Form\Generic implements Tab
                 ),
                 'style' =>  'min-width: 350px',
                 'note'     =>__('Show popup on selected page.'),
-            ]
-        );
-
-        $showspeciurl = $fieldset->addField(
-            'specified_url',
-            'text',
-            [
-                'name' => 'specified_url',
-                'label' => __('Specified URL:'),
-                'title' => __('Specified URL'),
-                'required' => false,
-                'style' =>  'max-width: 350px',
+//                'after_element_html' => '
+//                <script type="text/javascript">
+//                   var showonpage = document.getElementById("show_on_page");
+//                   var strUser = showonpage.options[showonpage.selectedIndex].value;
+//
+//                    if(strUser == "SHOW_ON_ALL_PAGE"){
+//
+//                    }
+//                </script>
+//                '
             ]
         );
 
@@ -384,13 +459,14 @@ class PopupTab extends \Magento\Backend\Block\Widget\Form\Generic implements Tab
             'text',
             [
                 'name' => 'products',
-                'label' => __('Products:'),
+//                'label' => __('Products:'),
                 'title' => __('Products'),
                 'required' => false,
                 'style' =>  'max-width: 350px',
                 'config' => $this->_wysiwygConfig->getConfig(),
                 'class' => 'rule-param',
-                'after_element_html' => '<a id="product_link" href="javascript:void(0)" onclick="toggleMainProducts()"><img src="' . $this->getRuleTrigerImage()  . '" alt=""  class="v-middle rule-chooser-trigger" title="Select Products"></a><input type="hidden" value="'.$productIds.'" id="product_all_ids"/><div id="main_products_select" style="display:none; width:640px"></div>
+                'placeholder' => 'Choose Product Pages ...',
+                'after_element_html' => '<a id="product_link" href="javascript:void(0)" onclick="toggleMainProducts()"><img src="' . $this->getRuleTrigerImage()  . '" alt=""  class="v-middle rule-chooser-trigger" title="Select Products" width="20" height="20" style="margin-left:10px;"></a><input type="hidden" value="'.$productIds.'" id="product_all_ids"/><div id="main_products_select" style="display:none; width:640px"></div>
                 <script type="text/javascript">
                     function toggleMainProducts(){
                         if($("main_products_select").style.display == "none"){
@@ -431,15 +507,16 @@ class PopupTab extends \Magento\Backend\Block\Widget\Form\Generic implements Tab
             'text',
             [
                 'name' => 'categories',
-                'label' => __('Categories:'),
+//                'label' => __('Categories:'),
                 'title' => __('Categories'),
-                'style' =>  'max-width: 650px',
+                'style' =>  'max-width: 350px',
                 'required' => false,
-                'after_element_html' => '<a id="category_link" href="javascript:void(0)" onclick="toggleMainCategories()"><img src="' . $this->getRuleTrigerImage() . '" alt="" class="v-middle rule-chooser-trigger" title="Select Categories"></a>
-                <div  id="categories_check" style="display:none">
+                'placeholder' => 'Choose Categories ...',
+                'after_element_html' => '<a id="category_link" href="javascript:void(0)" onclick="toggleMainCategories()"><img src="' . $this->getRuleTrigerImage() . '" alt="" class="v-middle rule-chooser-trigger" title="Select Categories" width="20" height="20" style="margin-left:10px;"></a>
+                <div  id="categories_check" style="display:none; width:650px;">
                     <a href="javascript:toggleMainCategories(1)">Check All</a> / <a href="javascript:toggleMainCategories(2)">Uncheck All</a>
                 </div>
-                <div id="main_categories_select" style="display:none"></div>
+                <div id="main_categories_select" style="display:none; width:650px;"></div>
                     <script type="text/javascript">
                     function toggleMainCategories(check){
                         var cate = $("main_categories_select");
@@ -477,32 +554,17 @@ class PopupTab extends \Magento\Backend\Block\Widget\Form\Generic implements Tab
             ]
         );
 
-
-        $fieldset->addField(
-            'exclude_url',
+        $showspeciurl = $fieldset->addField(
+            'specified_url',
             'text',
             [
-                'name' => 'exclude_url',
-                'label' => __('Exclude URL:'),
-                'title' => __('Exclude URl'),
+                'name' => 'specified_url',
+                'label' => __('Specified URL:'),
+                'title' => __('Specified URL'),
                 'required' => false,
                 'style' =>  'max-width: 350px',
             ]
         );
-        
-        $fieldset->addField(
-            'priority',
-            'text',
-            [
-                'name' => 'priority',
-                'label' => __('Set Priority:'),
-                'title' => __('Set Priority'),
-                'required' => false,
-                'style' =>  'max-width: 350px',
-                'note'     =>__('Set priority for popups to be shown. 0 is the lowest priority.'),
-            ]
-        );
-
 
         if($model['width'] == ''){$model['width'] = 300;}
         if($model['priority'] == ''){$model['priority'] = 0;}
@@ -529,6 +591,8 @@ class PopupTab extends \Magento\Backend\Block\Widget\Form\Generic implements Tab
             ->addFieldMap($showcateogry->getHtmlId(), $showcateogry->getName())
             ->addFieldMap($showproduct->getHtmlId(), $showproduct->getName())
             ->addFieldMap($showspeciurl->getHtmlId(), $showspeciurl->getName())
+            ->addFieldMap($showwhen->getHtmlId(), $showwhen->getName())
+            ->addFieldMap($delaytime->getHtmlId(), $delaytime->getName())
             ->addFieldDependence(
                 $showcateogry->getName(),
                 $showfollow->getName(),
@@ -543,6 +607,11 @@ class PopupTab extends \Magento\Backend\Block\Widget\Form\Generic implements Tab
                 $showspeciurl->getName(),
                 $showfollow->getName(),
                 'SHOW_ON_URLS_PAGE'
+            )
+            ->addFieldDependence(
+                $delaytime->getName(),
+                $showwhen->getName(),
+                'after_seconds'
             )
         );
         
