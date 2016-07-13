@@ -221,16 +221,16 @@ class PopupTab extends \Magento\Backend\Block\Widget\Form\Generic implements Tab
                   var top = (screen.height/2)-(h/2);
                   wLoad = window.open(url, title, \'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, copyhistory=no, width=\'+w+\', height=\'+h+\', top=\'+top+\', left=\'+left);
                   //load after window close
-                  wLoad.onunload = function(e){
-                    if (wLoad.closed) {
-                        //window closed
-                        var template_id = wLoad.document.getElementById(\'template_id\').value;
-                        window.location.href = "'.$this->getUrl('magestorepopupplusadmin/popupplus_widget/save').'template_id/"+template_id;
-                        //console.log(wLoad.document.getElementById(\'template_id\').value);
-                    }else{
-                       //just refreshed
-                    }
-                  }
+//                  wLoad.onunload = function(e){
+//                    if (wLoad.closed) {
+//                        //window closed
+//                        var template_id = wLoad.document.getElementById(\'template_id\').value;
+//                        window.location.href = "'.$this->getUrl('magestorepopupplusadmin/popupplus_widget/save').'template_id/"+template_id;
+//                        //console.log(wLoad.document.getElementById(\'template_id\').value);
+//                    }else{
+//                       //just refreshed
+//                    }
+//                  }
                   return popupLoadTemplate;
                 }
                 </script>'

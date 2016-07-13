@@ -1,0 +1,10 @@
+<input id="template_id" name="template_id" value="" type="hidden">
+
+<script type="text/javascript">
+    function closePopup(val){
+        var idtemplate  = document.getElementById('pushidtemp').value;
+        console.log(idtemplate);
+        document.getElementById('template_id').value = idtemplate;
+        window.close();
+    }
+</script>

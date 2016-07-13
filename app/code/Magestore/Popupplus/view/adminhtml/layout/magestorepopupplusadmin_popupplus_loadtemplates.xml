@@ -9,6 +9,7 @@
         <container name="root">
             <block class="Magestore\Popupplus\Block\Adminhtml\Loadtemplates" name="admin.block.popupplus.grid.template" />
             <block class="Magestore\Popupplus\Block\Adminhtml\Loadtemplates" name="admin.block.popupplus.grid.template.js" template="Magestore_Popupplus::loadtemplate_js.phtml" />
+            <block class="Magestore\Popupplus\Block\Adminhtml\Loadtemplates" name="admin.block.popupplus.template.js" template="Magestore_Popupplus::pushtemplate.phtml" />
         </container>
     </body>
 </page>

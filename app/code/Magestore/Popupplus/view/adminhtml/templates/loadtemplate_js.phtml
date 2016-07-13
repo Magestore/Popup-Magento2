@@ -42,18 +42,12 @@ $baseurl = $block->getbaseUrl();
                 </div>
             </div>
             <div id="action">
-                <div id="template_id">
-                    <b><span><a href="#" onclick="">Apply</a></span><span><?php echo $items->getTemplateId(); ?></span></b>
+                <div id="applytemp">
+                    <input name="pushidtemplate" id="pushidtemp" value="<?php echo $items->getTemplateId(); ?>" onclick="closePopup(<?php echo $items->getTemplateId(); ?>)" style="border:none; background-color: #3694D2; width: 28px;" placeholder="Apply" />
                 </div>
             </div>
         </div>
         <?php endforeach; ?>
     </div>
 </div>
-<script type="text/javascript">
-    function closePopup(val){
-        document.getElementById('template_id').value = val;
-        window.close();
-    }
-</script>
-<input id="template_id" name="template_id" value="" type="hidden">
+
