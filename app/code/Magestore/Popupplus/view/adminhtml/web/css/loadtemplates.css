@@ -10,6 +10,46 @@
 
 .gettemp{
     width: 100%;
-    background: blue;
-    height: 150px;
+    background: #795548;
+    float: left;
+    border-bottom: 2px solid #3E2723;
+}
+
+#preview_image{
+    width: 40%;
+    float: left;
+}
+
+#imagetemp{
+    margin: 10px;
+}
+
+#titletemp{
+    width: 40%;
+    float: left;
+    color: #ffffff;
+    line-height: 200px;
+    text-align: center;
+}
+
+#tempname{
+    margin: 10px;
+}
+
+
+#action{
+    width: 20%;
+    float: left;
+    color: #ffffff;
+    line-height: 200px;
+    text-align: center;
+}
+
+#template_id {
+    margin: 10px;
+}
+
+#template_id a{
+    color: #ffffff;
+    font-weight: bold;
 }

@@ -22,24 +22,32 @@
 /**
  * Campaign template
  *
- * @see Magestore_Campaign_Block_Campaign
+ * @see Magestore_Poupplus_Block_Adminhtml
  */
+$item_templates = $block->getTemplateItems();
+$baseurl = $block->getbaseUrl();
 ?>
-<div class="templates">
+<div class="templates" xmlns="http://www.w3.org/1999/html">
     <div class="content">
-        
+        <?php foreach ($item_templates as $items): ?>
         <div class="gettemp">
             <div id="preview_image">
-                
+                <div id="imagetemp">
+                    <img src="<?php echo $block->getViewFileUrl($items->getPreviewImage())?>" />
+                </div>
             </div>
             <div id="titletemp">
-                
+                <div id="tempname">
+                    <strong><?php echo $items->getTitle(); ?></strong>
+                </div>
             </div>
             <div id="action">
-                
+                <div id="template_id">
+                    <b><span><a href="#" onclick="">Apply</a></span><span><?php echo $items->getTemplateId(); ?></span></b>
+                </div>
             </div>
         </div>
-        
+        <?php endforeach; ?>
     </div>
 </div>
 <script type="text/javascript">

@@ -2,7 +2,7 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd" layout="admin-2columns-left">
   <head>
     <title>Edit Popup</title>
-    <!--<script src="Magestore_Megamenu::js/jscolor/jscolor.js"/>-->
+    <script src="Magestore_Popupplus::js/jscolor/jscolor.js"/>
   </head>
   <body>
     <referenceContainer name="content">

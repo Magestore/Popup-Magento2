@@ -291,8 +291,8 @@ class StyleandeffectTab extends \Magento\Backend\Block\Widget\Form\Generic imple
             ]
         );
 
-        if($model['border_color'] == ''){$model['border_color'] = 'FFFFFF';}
-        if($model['popup_background'] == ''){$model['popup_background'] = 'FFFFFF';}
+        if($model['border_color'] == ''){$model['border_color'] = '6AFF45';}
+        if($model['popup_background'] == ''){$model['popup_background'] = 'FF4B14';}
         $form->setValues($model->getData());
         $this->setForm($form);
 
