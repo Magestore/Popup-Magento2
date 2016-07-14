@@ -8,8 +8,19 @@
     <body>
         <container name="root">
             <block class="Magestore\Popupplus\Block\Adminhtml\Loadtemplates" name="admin.block.popupplus.grid.template" />
-            <block class="Magestore\Popupplus\Block\Adminhtml\Loadtemplates" name="admin.block.popupplus.grid.template.js" template="Magestore_Popupplus::loadtemplate_js.phtml" />
-            <block class="Magestore\Popupplus\Block\Adminhtml\Loadtemplates" name="admin.block.popupplus.template.js" template="Magestore_Popupplus::pushtemplate.phtml" />
+            <block class="Magestore\Popupplus\Block\Adminhtml\Loadtemplates" name="admin.block.popupplus.gridtemplate.js" template="Magestore_Popupplus::loadtemplate_js.phtml" />
+            <!--<block class="Magestore\Popupplus\Block\Adminhtml\Loadtemplates" name="admin.block.popupplus.template.js" template="Magestore_Popupplus::pushtemplate.phtml" />-->
         </container>
     </body>
 </page>
+
+        <!--xml version="1.0" encoding="UTF-8"?>
+        <layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/layout_generic.xsd">
+            <update handle="formkey"/>
+            <body>
+                <container name="root">
+                    <block class="Magestore\Popupplus\Block\Adminhtml\Popupplus\GridTemplate" name="admin.block.popupplus.grid"/>
+                </container>
+            </body>
+        </layout>-->
+

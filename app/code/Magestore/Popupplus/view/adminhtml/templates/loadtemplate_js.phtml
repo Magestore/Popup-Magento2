@@ -43,7 +43,7 @@ $baseurl = $block->getbaseUrl();
             </div>
             <div id="action">
                 <div id="applytemp">
-                    <input name="pushidtemplate" id="pushidtemp" value="<?php echo $items->getTemplateId(); ?>" onclick="closePopup(<?php echo $items->getTemplateId(); ?>)" style="border:none; background-color: #3694D2; width: 28px;" placeholder="Apply" />
+                    <input name="pushidtemplate" id="pushidtemp" class="pushidtemplate" value="<?php echo $items->getTemplateId(); ?>" data-template-id="<?php echo $items->getTemplateId(); ?>" style="border:none; background-color: #3694D2; width: 28px;" placeholder="Apply" />
                 </div>
             </div>
         </div>
@@ -51,3 +51,86 @@ $baseurl = $block->getbaseUrl();
     </div>
 </div>
 
+<input id="template_id" name="template_id" value="" type="hidden">
+
+<script type="text/javascript">
+    require([
+        'jquery',
+        'prototype/prototype'
+    ], function($){
+
+        $('.pushidtemplate').on('click', function(){
+            var idtemplate  = $(this).attr('data-template-id');
+            //loadidtemplate(idtemplate);
+
+//            $.ajax({
+//                url: '<?php //echo $block->getUrl('magestorepopupplusadmin/popupplus/findtemplate'); ?>//',
+//                method: 'POST',
+//                //                    dataType: 'json',
+//                data: {
+//                    templateid:idtemplate
+//                },
+//                success: function (response) {
+//                    console.log('aaaaaaaaaa');
+//                }
+//            });
+
+            var params = {};
+            params.form_key = FORM_KEY;
+            params.templateid = idtemplate;
+            new Ajax.Request('<?php echo $block->getUrl('magestorepopupplusadmin/popupplus/findtemplate'); ?>', {
+                parameters : params,
+                method :'post',
+                onComplete : function (transport, param){
+                    console.log('done');
+                    window.close();
+//                    var response = false;
+//                    if (transport && transport.responseText) {
+//                        try {
+//                            $(clicked_id+"_content_select").update(transport.responseText);
+//                            $(clicked_id+"_content_select").style.display = "block";
+//                        } catch (e) {
+//                            console.warn('An error occured while parsing response');
+//                        }
+//                    }
+                }
+            });
+
+            //alert(idtemplate);
+            //console.log(idtemplate);
+
+
+                //document.getElementById('template_id').value = idtemplate;
+                //window.close();
+
+
+
+        });
+
+//        function closePopup(val){
+//            console.log(val);
+//            var idtemplate  = val;
+//            //loadidtemplate(idtemplate);
+//            //alert(idtemplate);
+//            //console.log(idtemplate);
+//            $.when(loadidtemplate(idtemplate)).done(function(){
+//                document.getElementById('template_id').value = idtemplate;
+//                //window.close();
+//            });
+//        }
+//        function loadidtemplate(template_id){
+//            $.ajax({
+//                url: '<?php //echo $block->getUrl('magestorepopupplusadmin/popupplus/findtemplate'); ?>//',
+//                method: 'POST',
+//    //                    dataType: 'json',
+//                data: {
+//                    templateid:template_id
+//                },
+//                success: function (response) {
+//
+//                }
+//            });
+//        }
+
+    });
+</script>
