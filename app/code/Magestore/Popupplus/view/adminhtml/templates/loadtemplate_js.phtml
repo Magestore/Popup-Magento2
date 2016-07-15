@@ -64,7 +64,7 @@ $baseurl = $block->getbaseUrl();
             var params = {};
             params.form_key = FORM_KEY;
             params.templateid = idtemplate;
-            new Ajax.Request('<?php echo $block->getUrl('magestorepopupplusadmin/popupplus/newfromtemplate'); ?>', {
+            new Ajax.Request('<?php echo $block->getUrl('magestorepopupplusadmin/popupplus/findtemplate'); ?>', {
                 parameters : params,
                 method :'post',
                 onComplete : function (transport, param){
