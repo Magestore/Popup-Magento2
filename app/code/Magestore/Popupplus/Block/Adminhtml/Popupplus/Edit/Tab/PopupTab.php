@@ -224,7 +224,7 @@ class PopupTab extends \Magento\Backend\Block\Widget\Form\Generic implements Tab
                     wLoad.onunload = function(e){
                         if (wLoad.closed) {
                             //window closed
-                            window.location.href = "'.$this->getUrl('*/*/edit').'";
+                            window.location.href = "'.$this->getUrl('*/*/newfromtemplate').'";
                         }else{
                            //just refreshed
                         }
@@ -372,6 +372,18 @@ class PopupTab extends \Magento\Backend\Block\Widget\Form\Generic implements Tab
         $fieldset = $form->addFieldset('showonpage_fieldset', ['legend' => __('Choose Location To Show Popup')]);
 
         $fieldset->addField(
+            'exclude_url',
+            'text',
+            [
+                'name' => 'exclude_url',
+                'label' => __('Exclude URL:'),
+                'title' => __('Exclude URl'),
+                'required' => false,
+                'style' =>  'max-width: 350px',
+            ]
+        );
+
+        $fieldset->addField(
             'store',
             'select',
             [
@@ -381,18 +393,6 @@ class PopupTab extends \Magento\Backend\Block\Widget\Form\Generic implements Tab
                 'style' =>  'min-width: 350px',
                 'required' => false,
                 'values' => $this->_systemStore->getStoreValuesForForm(false, true),
-            ]
-        );
-
-        $fieldset->addField(
-            'exclude_url',
-            'text',
-            [
-                'name' => 'exclude_url',
-                'label' => __('Exclude URL:'),
-                'title' => __('Exclude URl'),
-                'required' => false,
-                'style' =>  'max-width: 350px',
             ]
         );
 
@@ -447,6 +447,18 @@ class PopupTab extends \Magento\Backend\Block\Widget\Form\Generic implements Tab
 //                    }
 //                </script>
 //                '
+            ]
+        );
+
+        $showspeciurl = $fieldset->addField(
+            'specified_url',
+            'text',
+            [
+                'name' => 'specified_url',
+                'label' => __('Specified URL:'),
+                'title' => __('Specified URL'),
+                'required' => false,
+                'style' =>  'max-width: 350px',
             ]
         );
 
@@ -549,18 +561,6 @@ class PopupTab extends \Magento\Backend\Block\Widget\Form\Generic implements Tab
                 };
 		</script>
             '
-            ]
-        );
-
-        $showspeciurl = $fieldset->addField(
-            'specified_url',
-            'text',
-            [
-                'name' => 'specified_url',
-                'label' => __('Specified URL:'),
-                'title' => __('Specified URL'),
-                'required' => false,
-                'style' =>  'max-width: 350px',
             ]
         );
 

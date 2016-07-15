@@ -22,6 +22,7 @@ class InstallSchema implements InstallSchemaInterface
 
         $installer->getConnection()->dropTable($installer->getTable('magestore_popupplus_popupplus'));
         $installer->getConnection()->dropTable($installer->getTable('magestore_popupplus_templates'));
+        $installer->getConnection()->dropTable($installer->getTable('magestore_popup_find_templates'));
 
         /**
          * Create table 'magestore_popupplus_popupplus'
@@ -472,6 +473,27 @@ class InstallSchema implements InstallSchemaInterface
                 'trigger_popup'
             )->setComment('Templates entities');
         $installer->getConnection()->createTable($table);
+
+        /**
+         * Create table 'magestore_popup_find_templates'
+         */
+        $table = $installer->getConnection()
+            ->newTable($installer->getTable('magestore_popup_find_templates'))
+            ->addColumn(
+                'choose_id',
+                \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+                null,
+                ['identity' => true, 'unsigned' => true, 'nullable' => false, 'primary' => true],
+                'choose_id'
+            )->addColumn(
+                'template_code',
+                \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                20,
+                ['nullable' => false, 'default' => ''],
+                'template_code'
+            )->setComment('Find template popup');
+        $installer->getConnection()->createTable($table);
+
 
         $installer->endSetup();
     }
