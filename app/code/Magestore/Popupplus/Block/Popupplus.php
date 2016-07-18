@@ -1,11 +1,11 @@
-<?php 
+<?php
 
 namespace Magestore\Popupplus\Block;
 
 /**
  * Block BlockTest
  */
-class BlockTest extends \Magento\Framework\View\Element\Template
+class Popupplus extends \Magento\Framework\View\Element\Template
 {
     /**
      * Block constructor

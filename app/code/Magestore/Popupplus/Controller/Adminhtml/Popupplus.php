@@ -8,6 +8,12 @@ namespace Magestore\Popupplus\Controller\Adminhtml;
 abstract class Popupplus extends \Magento\Backend\App\Action
 {
     /**
+     * Block factory
+     *
+     * @var \Magento\Framework\View\Element\BlockFactory
+     */
+    protected $_blockFactory;
+    /**
      * @var \Magento\Backend\Model\Session
      */
     protected $_backendSession;
@@ -26,10 +32,12 @@ abstract class Popupplus extends \Magento\Backend\App\Action
      */
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
+        \Magento\Framework\View\Element\BlockFactory $blockFactory,
 //        \Magento\Backend\Model\Session $backendSession
         \Magento\Framework\View\Element\Template\Context $templatecontext
     ) {
 //        $this->_backendSession = $backendSession;
+        $this->_blockFactory = $blockFactory;
         $this->_session = $templatecontext->getSession();
         parent::__construct($context);
     }

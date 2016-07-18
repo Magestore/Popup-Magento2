@@ -201,18 +201,21 @@ class PopupTab extends \Magento\Backend\Block\Widget\Form\Generic implements Tab
             ]
         );
 
-        $fieldset->addField(
-            'load_template',
-            'label',
-            [
-                'name' => 'load_template',
-                'label' => __(''),
-                'title' => __(''),
-                'required' => false,
-                'after_element_html' => '
+        $popupId = $this->getRequest()->getParam('popup_id');
+
+        if($popupId){
+            $fieldset->addField(
+                'load_template',
+                'label',
+                [
+                    'name' => 'load_template',
+                    'label' => __(''),
+                    'title' => __(''),
+                    'required' => false,
+                    'after_element_html' => '
                 <button id="" type="button" class="scalable add" style="" alt="Load template"
                  title="Load template" onclick="popupwindow(\''
-                                    .$this->getUrl('magestorepopupplusadmin/popupplus/loadtemplates').'\', \'_blank\', 1000, 500);" href="javascript:void(0);" <span="">Create popup using predefined templates
+                        .$this->getUrl('magestorepopupplusadmin/popupplus/loadtemplates').'\', \'_blank\', 1000, 500);" href="javascript:void(0);" <span="">Create popup using predefined templates
                         </button>
                         <script type="text/javascript">
                         var popupLoadTemplate;
@@ -224,7 +227,7 @@ class PopupTab extends \Magento\Backend\Block\Widget\Form\Generic implements Tab
                     wLoad.onunload = function(e){
                         if (wLoad.closed) {
                             //window closed
-                            window.location.href = "'.$this->getUrl('*/*/newfromtemplate').'";
+                            window.location.href = "'.$this->getUrl('*/*/edit/').'";
                         }else{
                            //just refreshed
                         }
@@ -232,8 +235,45 @@ class PopupTab extends \Magento\Backend\Block\Widget\Form\Generic implements Tab
                       return popupLoadTemplate;
                     }
                 </script>'
-            ]
-        );
+                ]
+            );
+        }else{
+            $fieldset->addField(
+                'load_template',
+                'label',
+                [
+                    'name' => 'load_template',
+                    'label' => __(''),
+                    'title' => __(''),
+                    'required' => false,
+                    'after_element_html' => '
+                <button id="" type="button" class="scalable add" style="" alt="Load template"
+                 title="Load template" onclick="popupwindow(\''
+                        .$this->getUrl('magestorepopupplusadmin/popupplus/loadtemplates').'\', \'_blank\', 1000, 500);" href="javascript:void(0);" <span="">Create popup using predefined templates
+                        </button>
+                        <script type="text/javascript">
+                        var popupLoadTemplate;
+                        function popupwindow(url, title, w, h) {
+                  var left = (screen.width/2)-(w/2);
+                  var top = (screen.height/2)-(h/2);
+                  wLoad = window.open(url, title, \'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, copyhistory=no, width=\'+w+\', height=\'+h+\', top=\'+top+\', left=\'+left);
+                  //load after window close
+                    wLoad.onunload = function(e){
+                        if (wLoad.closed) {
+                            //window closed
+                            window.location.href = "'.$this->getUrl('*/*/new').'";
+                        }else{
+                           //just refreshed
+                        }
+                      }
+                      return popupLoadTemplate;
+                    }
+                </script>'
+                ]
+            );
+        }
+
+
 
         $fieldset->addField(
             'popup_content',
