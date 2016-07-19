@@ -34,7 +34,7 @@ class Findtemplate extends \Magestore\Popupplus\Controller\Adminhtml\Popupplus
 
             $popupcontent = $templates->getTemplateFile();
             $popup_success_content = $templates->getTemplateFileSuccess();
-            
+
             $popuphtml = $this->_blockFactory->createBlock('Magestore\Popupplus\Block\Popupplus');
             $popuphtml->setTemplate($popupcontent);
             $popupfile = $popuphtml->toHtml();

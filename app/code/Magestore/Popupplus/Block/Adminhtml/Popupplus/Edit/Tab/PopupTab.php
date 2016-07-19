@@ -236,7 +236,7 @@ class PopupTab extends \Magento\Backend\Block\Widget\Form\Generic implements Tab
                     wLoad.onunload = function(e){
                         if (wLoad.closed) {
                             //window closed
-                            window.location.href = "'.$this->getUrl('*/*/edit/').'";
+                            window.location.href = "'.$this->getUrl('*/*/edit/',['popup_id' => $popupId]).'";
                         }else{
                            //just refreshed
                         }
@@ -615,9 +615,11 @@ class PopupTab extends \Magento\Backend\Block\Widget\Form\Generic implements Tab
 
         if($model['width'] == ''){$model['width'] = 300;}
         if($model['priority'] == ''){
+            $popup = $this->_objectManager->create('Magestore\Popupplus\Model\Popupplus')->getCollection();
             $popup_count = $this->Countpopup();
             $model['priority'] = $popup_count + 1;
         }
+
 
         $form->setValues($model->getData());
         $this->setForm($form);

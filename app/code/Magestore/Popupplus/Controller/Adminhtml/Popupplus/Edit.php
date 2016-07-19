@@ -28,6 +28,7 @@ class Edit extends \Magestore\Popupplus\Controller\Adminhtml\Popupplus
         }
 
         $data = $this->_getSession()->getFormData(true);
+
         if (!empty($data)) {
             $model->setData($data);
         }
@@ -37,5 +38,20 @@ class Edit extends \Magestore\Popupplus\Controller\Adminhtml\Popupplus
         $resultPage = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
         $resultPage->setActiveMenu('Magestore_Popupplus::magestorepopupplus');
         return $resultPage;
+    }
+
+    /**
+     * Generate content to log file debug.log By Hattetek.Com
+     *
+     * @param  $message string|array
+     * @return void
+     */
+    function xlog($message = 'null')
+    {
+        $log = print_r($message, true);
+        \Magento\Framework\App\ObjectManager::getInstance()
+            ->get('Psr\Log\LoggerInterface')
+            ->debug($log)
+        ;
     }
 }
