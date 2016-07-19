@@ -33,19 +33,18 @@ class Findtemplate extends \Magestore\Popupplus\Controller\Adminhtml\Popupplus
             $data = $templates->getData();
 
             $popupcontent = $templates->getTemplateFile();
+            $popup_success_content = $templates->getTemplateFileSuccess();
+            
+            $popuphtml = $this->_blockFactory->createBlock('Magestore\Popupplus\Block\Popupplus');
+            $popuphtml->setTemplate($popupcontent);
+            $popupfile = $popuphtml->toHtml();
 
-            $popuphtml = $this->_blockFactory->createBlock('Magestore\Popupplus\Block\Adminhtml\Popupplus')->setTemplate('Magestore_Popupplus::popup/subscribe/template01.phtml')->toHtml();
-            $this->xlog($popuphtml);
-//            $popuphtml = $this->_view->getLayout()->createBlock('Magestore\Popupplus\Block\Popupplus');
-//            $popuphtml->setTemplate('Magestore_Popupplus::popup/subscribe/template01.phtml');
-//            $popuphtml->toHtml();
+            $popupsuccesshtml = $this->_blockFactory->createBlock('Magestore\Popupplus\Block\Popupplus');
+            $popupsuccesshtml->setTemplate($popup_success_content);
+            $popupsuccessfile = $popupsuccesshtml->toHtml();
 
-            $data['popup_content'] = $popuphtml;
-            $data['content_for_success'] = $templates->getTemplateFileSuccess();
-
-
-//            $data['popup_content'] = $templates->getTemplateFile();
-//            $data['content_for_success'] = $templates->getTemplateFileSuccess();
+            $data['popup_content'] = $popupfile;
+            $data['content_for_success'] = $popupsuccessfile;
 
             $this->_objectManager->create('Magento\Backend\Model\Session')->setFormData($data);
         }

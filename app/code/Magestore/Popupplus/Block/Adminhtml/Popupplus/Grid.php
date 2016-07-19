@@ -73,21 +73,31 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
             ]
         );
 
-        $this->addColumn(
-            'store',
-            [
-                'header'           => __('Store'),
-                'index'            => 'store',
-                'header_css_class' => 'col-name',
-                'column_css_class' => 'col-name',
-            ]
-        );
+//        $this->addColumn(
+//            'store',
+//            [
+//                'header'           => __('Store'),
+//                'index'            => 'store',
+//                'header_css_class' => 'col-name',
+//                'column_css_class' => 'col-name',
+//            ]
+//        );
 
         $this->addColumn(
             'show_on_page',
             [
                 'header'           => __('Show On Page'),
                 'index'            => 'show_on_page',
+                'header_css_class' => 'col-name',
+                'column_css_class' => 'col-name',
+            ]
+        );
+
+        $this->addColumn(
+            'showing_frequency',
+            [
+                'header'           => __('Showing Frequency'),
+                'index'            => 'showing_frequency',
                 'header_css_class' => 'col-name',
                 'column_css_class' => 'col-name',
             ]

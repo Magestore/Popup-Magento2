@@ -160,6 +160,15 @@ class PopupTab extends \Magento\Backend\Block\Widget\Form\Generic implements Tab
     }
 
     /**
+     * get count item popup
+    */
+    public function Countpopup(){
+        $popup = $this->_objectManager->create('Magestore\Popupplus\Model\Popupplus')->getCollection();
+        $popup_count = $popup->count();
+        return $popup_count;
+    }
+
+    /**
      * {@inheritdoc}
      */
     protected function _prepareForm()
@@ -605,19 +614,10 @@ class PopupTab extends \Magento\Backend\Block\Widget\Form\Generic implements Tab
         );
 
         if($model['width'] == ''){$model['width'] = 300;}
-        if($model['priority'] == ''){$model['priority'] = 0;}
-
-        // define field dependencies
-//        $this->setChild(
-//            'form_after',
-//            $this->getLayout()->createBlock(
-//                'Magento\Backend\Block\Widget\Form\Element\Dependence'
-//            )->addFieldMap(
-//                "categories",
-//                'show_on_page',
-//                'SHOW_ON_CATEGORY_PAGE'
-//            )
-//        );
+        if($model['priority'] == ''){
+            $popup_count = $this->Countpopup();
+            $model['priority'] = $popup_count + 1;
+        }
 
         $form->setValues($model->getData());
         $this->setForm($form);
