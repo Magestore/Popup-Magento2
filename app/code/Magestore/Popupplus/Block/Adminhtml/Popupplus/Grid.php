@@ -90,6 +90,8 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
                 'index'            => 'show_on_page',
                 'header_css_class' => 'col-name',
                 'column_css_class' => 'col-name',
+                'type' => 'options',
+                'options' => \Magestore\Popupplus\Model\Optionsgrid::getAvailableShowOnPage(),
             ]
         );
 
@@ -100,6 +102,8 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
                 'index'            => 'showing_frequency',
                 'header_css_class' => 'col-name',
                 'column_css_class' => 'col-name',
+                'type' => 'options',
+                'options' => \Magestore\Popupplus\Model\Optionsgrid::getAvailableShowFrequency(),
             ]
         );
 
@@ -110,6 +114,8 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
                 'index'            => 'show_when',
                 'header_css_class' => 'col-name',
                 'column_css_class' => 'col-name',
+                'type' => 'options',
+                'options' => \Magestore\Popupplus\Model\Optionsgrid::getAvailableShowWhen(),
             ]
         );
 
@@ -118,6 +124,7 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
             [
                 'header'           => __('Priority'),
                 'index'            => 'priority',
+                'type'             => 'number',
                 'header_css_class' => 'col-name',
                 'column_css_class' => 'col-name',
             ]
