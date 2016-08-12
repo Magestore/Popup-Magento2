@@ -169,6 +169,19 @@ class PopupTab extends \Magento\Backend\Block\Widget\Form\Generic implements Tab
     }
 
     /**
+     * get popupplus collection
+     */
+    public function getPopupplusNameItem(){
+        $popup = $this->_objectManager->create('Magestore\Popupplus\Model\Popupplus')->getCollection();
+        $collect = array();
+        $collect['00'] = 'Choose popup target ...';
+        foreach ($popup as $earchItem){
+            $collect[$earchItem->getPopupId()] = $earchItem->getTitle();
+        }
+        return $collect;
+    }
+
+    /**
      * {@inheritdoc}
      */
     protected function _prepareForm()
@@ -211,7 +224,8 @@ class PopupTab extends \Magento\Backend\Block\Widget\Form\Generic implements Tab
         );
 
         $popupId = $this->getRequest()->getParam('popup_id');
-
+        /*don't allow change popup template when admin created this template*/
+    if($popupId == NULL){
         if($popupId){
             $fieldset->addField(
                 'load_template',
@@ -281,8 +295,7 @@ class PopupTab extends \Magento\Backend\Block\Widget\Form\Generic implements Tab
                 ]
             );
         }
-
-
+    }
 
         $fieldset->addField(
             'popup_content',
@@ -355,13 +368,13 @@ class PopupTab extends \Magento\Backend\Block\Widget\Form\Generic implements Tab
                 'label' => __('Seconds Delay:'),
                 'title' => __('Seconds Delay'),
                 'required' => false,
-                'style' =>  'max-width: 350px',
+                'style' =>  'min-width: 350px',
                 'class'       => 'validate-number',
                 'note'      => 'Seconds to show popup.',
             ]
         );
 
-        $fieldset->addField(
+        $showfrequency = $fieldset->addField(
             'showing_frequency',
             'select',
             [
@@ -392,16 +405,18 @@ class PopupTab extends \Magento\Backend\Block\Widget\Form\Generic implements Tab
             ]
         );
 
-        $fieldset->addField(
+        $popupmodel = $this->getPopupplusNameItem();
+        $trigger = $fieldset->addField(
             'trigger_popup',
-            'text',
+            'select',
             [
                 'name' => 'trigger_popup',
                 'label' => __('Click Target:'),
                 'title' => __('Click Target'),
                 'required' => false,
-                'style' =>  'max-width: 350px',
+                'style' =>  'min-width: 350px',
                 'note'     =>__('Select ID of the popup to be shown when clicking this popup'),
+                'options' => $popupmodel,
             ]
         );
 
@@ -633,6 +648,9 @@ class PopupTab extends \Magento\Backend\Block\Widget\Form\Generic implements Tab
             ->addFieldMap($showspeciurl->getHtmlId(), $showspeciurl->getName())
             ->addFieldMap($showwhen->getHtmlId(), $showwhen->getName())
             ->addFieldMap($delaytime->getHtmlId(), $delaytime->getName())
+            ->addFieldMap($showfrequency->getHtmlId(), $showfrequency->getName())
+            ->addFieldMap($trigger->getHtmlId(), $trigger->getName(),'1')
+            ->addFieldMap($trigger->getHtmlId(), $trigger->getName(),'2')
             ->addFieldDependence(
                 $showcateogry->getName(),
                 $showfollow->getName(),
@@ -652,6 +670,11 @@ class PopupTab extends \Magento\Backend\Block\Widget\Form\Generic implements Tab
                 $delaytime->getName(),
                 $showwhen->getName(),
                 'after_seconds'
+            )
+            ->addFieldDependence(
+                $trigger->getName(),
+                $showfrequency->getName(),
+                'SHOW_FREQUENCY_EVERY_TIME'
             )
         );
         

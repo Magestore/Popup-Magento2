@@ -214,6 +214,8 @@ class SegmentationTab extends \Magento\Backend\Block\Widget\Form\Generic impleme
         );
 
         if($model['cookie_time'] == ''){$model['cookie_time'] = 1;}
+        if($model['customer_group_ids'] == ''){$model['customer_group_ids'] = 1;}
+        if($model['devices'] == ''){$model['devices'] = 'all_device';}
         $form->setValues($model->getData());
         $this->setForm($form);
 
